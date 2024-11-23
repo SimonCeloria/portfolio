@@ -13,7 +13,7 @@ const projects = [
     title: "The switcher",
     description:
       "Este proyecto consiste en una aplicación web que ayuda a gestionar tareas de manera eficiente, con integración a servicios en la nube.",
-    image: "public/game.png",
+    image: "public/Switcher.png",
     link: "https://github.com/tu-usuario/proyecto-1",
   },
   {
@@ -30,6 +30,7 @@ const projects = [
     image: "https://via.placeholder.com/600x300",
     link: "https://github.com/tu-usuario/proyecto-3",
   },
+  // Agrega más proyectos según sea necesario
 ];
 
 const MainComponent = () => {
@@ -66,7 +67,14 @@ const MainComponent = () => {
       </Typography>
 
       {/* Tarjetas de Proyectos */}
-      <div className="flex flex-col gap-12 max-w-7xl mx-auto">
+      <div
+        className="grid gap-6 max-w-8xl mx-auto"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "1.5rem",
+        }}
+      >
         {projects.map((project, index) => (
           <motion.div
             key={index}
@@ -89,29 +97,38 @@ const MainComponent = () => {
                 margin: "auto",
                 backgroundColor: "#0C282E",
                 color: "#FFFFFF",
+                cursor: "pointer",
+                maxHeight: "800px", // Altura máxima de la tarjeta
                 display: "flex",
                 flexDirection: "column",
-                cursor: "pointer",
               }}
             >
               <CardMedia
                 component="img"
-                height="300"
+                sx={{
+                  maxHeight: "460px", // Altura máxima de la imagen
+                  objectFit: "cover", // Recorta la imagen si excede el tamaño
+                }}
                 image={project.image}
                 alt={project.title}
               />
-              <CardContent>
+              <CardContent
+                sx={{
+                  flexGrow: 1, // Permite que el contenido crezca sin exceder la altura máxima
+                  overflow: "hidden", // Oculta cualquier contenido adicional si se desborda
+                }}
+              >
                 <Typography
                   gutterBottom
-                  variant="h4"
+                  variant="h5"
                   component="div"
                   sx={{ color: "#00A693" }}
                 >
                   {project.title}
                 </Typography>
                 <Typography
-                  variant="body1"
-                  sx={{ color: "#A6A6A6", fontSize: "1rem" }}
+                  variant="body2"
+                  sx={{ color: "#A6A6A6", fontSize: "0.875rem" }}
                 >
                   {project.description}
                 </Typography>
@@ -120,12 +137,12 @@ const MainComponent = () => {
                 sx={{
                   mt: "auto",
                   display: "flex",
-                  justifyContent: "space-between",
-                  padding: "16px",
+                  justifyContent: "center",
+                  padding: "8px",
                 }}
               >
                 <Button
-                  size="large"
+                  size="small"
                   sx={{
                     color: "#00A693",
                     borderColor: "#00A693",
