@@ -4,88 +4,143 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const projects = [
   {
-    title: "Proyecto 1",
-    description: "Descripción breve del proyecto 1.",
-    image: "https://via.placeholder.com/345x140",
+    title: "The switcher",
+    description:
+      "Este proyecto consiste en una aplicación web que ayuda a gestionar tareas de manera eficiente, con integración a servicios en la nube.",
+    image: "public/game.png",
     link: "https://github.com/tu-usuario/proyecto-1",
   },
   {
     title: "Proyecto 2",
-    description: "Descripción breve del proyecto 2.",
-    image: "https://via.placeholder.com/345x140",
+    description:
+      "Este proyecto es un videojuego desarrollado en Unity que explora conceptos de física realista y narrativas interactivas.",
+    image: "https://via.placeholder.com/600x300",
     link: "https://github.com/tu-usuario/proyecto-2",
   },
   {
     title: "Proyecto 3",
-    description: "Descripción breve del proyecto 3.",
-    image: "https://via.placeholder.com/345x140",
+    description:
+      "Se trata de una plataforma e-commerce que incluye búsqueda avanzada, recomendaciones personalizadas y un sistema de pago seguro.",
+    image: "https://via.placeholder.com/600x300",
     link: "https://github.com/tu-usuario/proyecto-3",
   },
 ];
 
 const MainComponent = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <main className="mt-24 p-8">
+    <main
+      className="p-8"
+      style={{
+        backgroundColor: "#0F0A18",
+        color: "#00A693",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Título Principal */}
       <Typography
         variant="h2"
         align="center"
         gutterBottom
         sx={{
           fontWeight: "bold",
-          fontSize: "6rem",
+          fontSize: "4rem",
           background: "linear-gradient(to right, #005B41, #008170, #00A693)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
-          mb: 2,
+          mb: 4,
         }}
-      >
-        SIMÓN CELORIA
-      </Typography>
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
-        color="text.secondary"
-        sx={{ mb: 8 }}
       >
         Mis Proyectos Destacados
       </Typography>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      {/* Tarjetas de Proyectos */}
+      <div className="flex flex-col gap-12 max-w-7xl mx-auto">
         {projects.map((project, index) => (
-          <Card key={index} sx={{ maxWidth: 345, margin: "auto" }}>
-            <CardActionArea>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            viewport={{ once: true }}
+            whileHover={{
+              scale: 1.02,
+              transition: {
+                duration: 0.2,
+                ease: "easeInOut",
+              },
+            }}
+          >
+            <Card
+              onClick={() => handleCardClick(`/projects/${index}`)}
+              sx={{
+                maxWidth: "100%",
+                margin: "auto",
+                backgroundColor: "#0C282E",
+                color: "#FFFFFF",
+                display: "flex",
+                flexDirection: "column",
+                cursor: "pointer",
+              }}
+            >
               <CardMedia
                 component="img"
-                height="140"
+                height="300"
                 image={project.image}
                 alt={project.title}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h4"
+                  component="div"
+                  sx={{ color: "#00A693" }}
+                >
                   {project.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body1"
+                  sx={{ color: "#A6A6A6", fontSize: "1rem" }}
+                >
                   {project.description}
                 </Typography>
               </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button
-                size="small"
-                color="primary"
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <CardActions
+                sx={{
+                  mt: "auto",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "16px",
+                }}
               >
-                Ver en GitHub
-              </Button>
-            </CardActions>
-          </Card>
+                <Button
+                  size="large"
+                  sx={{
+                    color: "#00A693",
+                    borderColor: "#00A693",
+                    "&:hover": {
+                      backgroundColor: "#005B41",
+                      color: "#FFFFFF",
+                    },
+                  }}
+                  variant="outlined"
+                >
+                  Más información
+                </Button>
+              </CardActions>
+            </Card>
+          </motion.div>
         ))}
       </div>
     </main>

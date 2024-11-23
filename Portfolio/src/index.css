@@ -9,3 +9,7 @@
   --VerdeClaro: #008170;
   --VerdeClarisimo: #00A693;
 }
+
+:root ::-webkit-scrollbar {
+  display: none; 
+}
